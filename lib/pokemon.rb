@@ -11,11 +11,17 @@ class Pokemon
 
   def self.save(name, type, db)
     sql = <<-SQL
-      INSERT INTO pokemon (name, type, db)
-      VALUES (?, ?, ?)
+      INSERT INTO pokemon (name, type)
+      VALUES (?, ?)
     SQL
-    db.execute(sql, self.name, self.type, self.db)
-    self.id = db.execute("SELECT last_insert_rowid() FROM pokemon")[0][0]
+    db.execute(sql, name, type)
+  end
+
+  def self.find(id, db)
+    sql = <<-SQL
+      SELECT * FROM pokemon WHERE id = ? LIMIT 1
+    SQL
+    db.execute(sql, id)
   end
 
 

@@ -19,9 +19,9 @@ class Pokemon
 
   def self.find(id, db)
     sql = <<-SQL
-      SELECT * FROM pokemon WHERE id = ? LIMIT 1
+      SELECT * FROM pokemon WHERE id = ?
     SQL
-    db.execute(sql, id)
+    db.execute(sql, id).first
   end
 
 
